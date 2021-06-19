@@ -39,8 +39,10 @@
   #error For RP2040 only
 #elif defined(ARDUINO_ARCH_MBED)
   #warning Using Arduino-mbed core and architecture for RP2040
+  #define RP2040_SD_VERSION     "MBED RP2040_SD v1.0.0"
 #else
   #warning Using arduino-pico architecture for RP2040
+  #define RP2040_SD_VERSION     "RP2040_SD v1.0.0"
 #endif
 
 #include <Arduino.h>
