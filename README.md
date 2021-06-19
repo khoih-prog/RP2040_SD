@@ -701,9 +701,10 @@ If you want to contribute to this project:
 
 ## Copyright
 
-(C) Copyright 2009 by William Greiman
-(C) Copyright 2010 SparkFun Electronics
-(C) Copyright 2021 by Khoi Hoang
+- (C) Copyright 2009 by William Greiman
+- (C) Copyright 2010 SparkFun Electronics
+- (C) Copyright 2021 by Khoi Hoang
+
 
 
 
