@@ -1,0 +1,29 @@
+{
+  "name": "RP2040_SD",
+  "version": "1.0.0",
+  "keywords": "data-storage, sd, sd-card, fat, fat16, fat32, sd-fat, ex-fat, spi, mbed, rpi-pico, rp2040, nano-rp2040-connect",
+  "description": "This library enables you to use SPI SD cards (FAT16, FAT32, exFAT) with RP2040-based boards such as Nano_RP2040_Connect, RASPBERRY_PI_PICO using either RP2040 Arduino-mbed or arduino-pico core.. This SD-Fat v2 can support FAT16, FAT32, exFAT. exFAT supports files larger than 4GB by using uint64_t as file offset.",
+  "authors":
+  {
+    "name":  "Khoi Hoang",
+    "url":   "https://github.com/khoih-prog",
+    "maintainer": true
+  },
+  "repository":
+  {
+    "type": "git",
+    "url": "//https://github.com/khoih-prog/RP2040_SD"
+  },
+  "homepage": "https://github.com/khoih-prog/RP2040_SD",
+  "export": {
+    "exclude": [
+      "linux",
+      "extras",
+      "tests"
+    ]
+  },
+  "frameworks": "*",
+  "platforms": ["rp2040", "mbed_rp2040", "mbed_nano"],
+  "examples": "examples/*/*/*.ino",
+  "license": "MIT"
+}
