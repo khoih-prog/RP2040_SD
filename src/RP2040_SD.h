@@ -23,11 +23,12 @@
   Built by Khoi Hoang https://github.com/khoih-prog/RP2040_SD
   Licensed under GPL-3.0 license
   
-  Version: 1.0.0
+  Version: 1.0.1
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0  K Hoang       18/06/2021 Port to RP2040-based boards using Arduimo-mbed or arduino-pico core
+  1.0.1  K Hoang       22/10/2021 Fix platform in library.json for PIO
  *****************************************************************************************************************************/
 
 #pragma once
@@ -39,10 +40,10 @@
   #error For RP2040 only
 #elif defined(ARDUINO_ARCH_MBED)
   #warning Using Arduino-mbed core and architecture for RP2040
-  #define RP2040_SD_VERSION     "MBED RP2040_SD v1.0.0"
+  #define RP2040_SD_VERSION     "MBED RP2040_SD v1.0.1"
 #else
   #warning Using arduino-pico architecture for RP2040
-  #define RP2040_SD_VERSION     "RP2040_SD v1.0.0"
+  #define RP2040_SD_VERSION     "RP2040_SD v1.0.1"
 #endif
 
 #include <Arduino.h>

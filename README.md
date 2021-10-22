@@ -14,8 +14,7 @@
 * [Why do we need this RP2040_SD library](#why-do-we-need-this-rp2040_sd-library)
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
-* [Changelog](#changelog)
-  * [Releases v1.0.0](#releases-v100)
+* [Changelog](changelog.md)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
   * [Use Arduino Library Manager](#use-arduino-library-manager)
@@ -44,7 +43,6 @@
   * [10. Files on RASPBERRY_PI_PICO](#10-files-on-raspberry_pi_pico)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
-* [Releases](#releases)
 * [Issues](#issues)
 * [TO DO](#to-do)
 * [DONE](#done)
@@ -91,26 +89,15 @@ But if you need to write codes to be used in both [**Arduino-mbed RP2040** core]
 
 1. RP2040-based boards such as **NANO_RP2040_CONNECT, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. using either [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico core**](https://github.com/earlephilhower/arduino-pico).
 
----
----
-
-
-## Changelog
-
-### Releases v1.0.0
-
-1. Port to RP2040-based boards using Arduino-mbed or arduino-pico core
-2. Add debugging feature
-
 
 ---
 ---
 
 ## Prerequisites
 
-1. [`Arduino IDE 1.8.15+` for Arduino](https://www.arduino.cc/en/Main/Software)
-2. [`Arduino mbed_rp2040 core 2.4.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino RP2040-based boards, such as **Arduino Nano RP2040 Connect, RASPBERRY_PI_PICO, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
-3. [`Earle Philhower's arduino-pico core v1.9.4+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+1. [`Arduino IDE 1.8.16+` for Arduino](https://www.arduino.cc/en/Main/Software)
+2. [`Arduino mbed_rp2040 core 2.5.2+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) RP2040-based boards, such as **Arduino Nano RP2040 Connect, RASPBERRY_PI_PICO, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+3. [`Earle Philhower's arduino-pico core v1.9.5+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
 
 ---
 ---
@@ -305,7 +292,7 @@ The following is the sample terminal output when running example [CardInfo](exam
 
 ```
 Starting SD Card CardInfo on MBED RaspberryPi Pico
-MBED RP2040_SD v1.0.0
+MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
 SCK = 2
 MOSI = 3
@@ -344,7 +331,7 @@ The following is the sample terminal output when running example [DumpFile](exam
 
 ```
 Starting SD Card DumpFile on MBED RaspberryPi Pico
-MBED RP2040_SD v1.0.0
+MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
 SCK = 2
 MOSI = 3
@@ -364,7 +351,7 @@ The following is the sample terminal output when running example [ListFiles](exa
 
 ```
 Starting SD Card ListFiles on MBED RaspberryPi Pico
-MBED RP2040_SD v1.0.0
+MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
 SCK = 2
 MOSI = 3
@@ -404,7 +391,7 @@ The following is the sample terminal output when running example [ReadWrite](exa
 
 ```
 Starting SD Card ReadWrite on MBED RaspberryPi Pico
-MBED RP2040_SD v1.0.0
+MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
 SCK = 2
 MOSI = 3
@@ -437,7 +424,7 @@ The following is the sample terminal output when running example [Files](example
 
 ```
 Starting SD Card Files on MBED RaspberryPi Pico
-MBED RP2040_SD v1.0.0
+MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
 SCK = 2
 MOSI = 3
@@ -463,7 +450,7 @@ The following is the sample terminal output when running example [CardInfo](exam
 
 ```
 Starting SD Card CardInfo on RASPBERRY_PI_PICO
-RP2040_SD v1.0.0
+RP2040_SD v1.0.1
 Initializing SD card with SS = 17
 SCK = 18
 MOSI = 19
@@ -500,7 +487,7 @@ The following is the sample terminal output when running example [DumpFile](exam
 
 ```
 Starting SD Card DumpFile on RASPBERRY_PI_PICO
-RP2040_SD v1.0.0
+RP2040_SD v1.0.1
 Initializing SD card with SS = 17
 SCK = 18
 MOSI = 19
@@ -520,7 +507,7 @@ The following is the sample terminal output when running example [ListFiles](exa
 
 ```
 Starting SD Card ListFiles on RASPBERRY_PI_PICO
-RP2040_SD v1.0.0
+RP2040_SD v1.0.1
 Initializing SD card with SS = 17
 SCK = 18
 MOSI = 19
@@ -554,7 +541,7 @@ The following is the sample terminal output when running example [ReadWrite](exa
 
 ```
 Starting SD Card ReadWrite on RASPBERRY_PI_PICO
-RP2040_SD v1.0.0
+RP2040_SD v1.0.1
 Initializing SD card with SS = 17
 SCK = 18
 MOSI = 19
@@ -587,7 +574,7 @@ The following is the sample terminal output when running example [Files](example
 
 ```
 Starting SD Card Files on RASPBERRY_PI_PICO
-RP2040_SD v1.0.0
+RP2040_SD v1.0.1
 Initializing SD card with SS = 17
 SCK = 18
 MOSI = 19
@@ -628,16 +615,6 @@ If you get compilation errors, more often than not, you may need to install a ne
 
 Sometimes, the library will only work if you update the board core to the latest version because I am using newly added functions.
 
-
----
----
-
-## Releases
-
-### Releases v1.0.0
-
-1. Port to RP2040-based boards using Arduino-mbed or arduino-pico core
-2. Add debugging feature
 
 ---
 ---

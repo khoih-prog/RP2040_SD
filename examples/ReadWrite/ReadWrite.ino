@@ -22,12 +22,6 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/RP2040_SD
   Licensed under GPL-3.0 license
-  
-  Version: 1.0.0
-  
-  Version Modified By   Date      Comments
-  ------- -----------  ---------- -----------
-  1.0.0  K Hoang       18/06/2021 Port to RP2040-based boards using Arduimo-mbed or arduino-pico core
  *****************************************************************************************************************************/
 /*
   SD card connection
