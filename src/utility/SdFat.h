@@ -1,30 +1,30 @@
 /****************************************************************************************************************************
   SdFat.h
-  
+
   For all RP2040 boads using Arduimo-mbed or arduino-pico core
-  
+
   RP2040_SD is a library enable the usage of SD on RP2040-based boards
-  
+
   This Library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
   as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
   This Library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License along with the Arduino SdFat Library.  
+  You should have received a copy of the GNU General Public License along with the Arduino SdFat Library.
   If not, see <http://www.gnu.org/licenses/>.
-  
+
   Based on and modified from  Arduino SdFat Library (https://github.com/arduino/Arduino)
-  
+
   (C) Copyright 2009 by William Greiman
   (C) Copyright 2010 SparkFun Electronics
   (C) Copyright 2021 by Khoi Hoang
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/RP2040_SD
   Licensed under GPL-3.0 license
-  
+
   Version: 1.0.1
-  
+
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0  K Hoang       18/06/2021 Port to RP2040-based boards using Arduimo-mbed or arduino-pico core
@@ -536,7 +536,7 @@ class RP2040_SdFile : public Print
 
     // make sure F_OFLAG is ok
 #if ((F_FILE_NON_BLOCKING_WRITE | F_FILE_CLUSTER_ADDED | F_FILE_UNBUFFERED_READ | F_FILE_DIR_DIRTY) & F_OFLAG)
-  #error flags_ bits conflict
+#error flags_ bits conflict
 #endif  // flags_ bits
 
     // private data
@@ -637,7 +637,7 @@ class RP2040_SdVolume
     {
       return clusterCount_;
     }
-    
+
     /** \return The shift count required to multiply by blocksPerCluster. */
     uint8_t clusterSizeShift()const
     {
@@ -655,9 +655,9 @@ class RP2040_SdVolume
     {
       return fatCount_;
     }
-    
+
     /** \return The logical block number for the start of the first FAT. */
-    uint32_t fatStartBlock()const 
+    uint32_t fatStartBlock()const
     {
       return fatStartBlock_;
     }
@@ -667,7 +667,7 @@ class RP2040_SdVolume
     {
       return fatType_;
     }
-    
+
     /** \return The number of entries in the root directory for FAT16 volumes. */
     uint32_t rootDirEntryCount()const
     {
@@ -697,8 +697,8 @@ class RP2040_SdVolume
     }
 
     /** \deprecated Use: uint8_t RP2040_SdVolume::init(Sd2Card* dev, uint8_t vol); */
-    uint8_t init(Sd2Card& dev, uint8_t part) 
-    {  
+    uint8_t init(Sd2Card& dev, uint8_t part)
+    {
       return init(&dev, part);
     }
 #endif  // ALLOW_DEPRECATED_FUNCTIONS

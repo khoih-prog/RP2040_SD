@@ -6,7 +6,11 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/RP2040_SD.svg)](http://github.com/khoih-prog/RP2040_SD/issues)
 
-<a href="https://www.buymeacoffee.com/khoihprog6" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 181px !important;" ></a>
+
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Donate to my libraries using BuyMeACoffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange.svg?logo=buy-me-a-coffee&logoColor=FFDD00" style="height: 20px !important;width: 200px !important;" ></a>
+<a href="https://profile-counter.glitch.me/khoih-prog/count.svg" title="Total khoih-prog Visitor count"><img src="https://profile-counter.glitch.me/khoih-prog/count.svg" style="height: 30px;width: 200px;"></a>
+<a href="https://profile-counter.glitch.me/khoih-prog-RP2040_SD/count.svg" title="RP2040_SD Visitor count"><img src="https://profile-counter.glitch.me/khoih-prog-RP2040_SD/count.svg" style="height: 30px;width: 200px;"></a>
 
 ---
 ---
@@ -98,8 +102,8 @@ But if you need to write codes to be used in both [**Arduino-mbed RP2040** core]
 ## Prerequisites
 
 1. [`Arduino IDE 1.8.19+` for Arduino](https://github.com/arduino/Arduino). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
-2. [`Arduino mbed_rp2040 core 2.7.2+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) RP2040-based boards, such as **Arduino Nano RP2040 Connect, RASPBERRY_PI_PICO, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
-3. [`Earle Philhower's arduino-pico core v1.10.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+2. [`Arduino mbed_rp2040 core 3.4.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) RP2040-based boards, such as **Arduino Nano RP2040 Connect, RASPBERRY_PI_PICO, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+3. [`Earle Philhower's arduino-pico core v2.6.3+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
 
 ---
 ---
@@ -124,7 +128,7 @@ Another way to install is to:
 
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install [**RP2040_SD** library](https://platformio.org/lib/show/12454/RP2040_SD) or [**RP2040_SD** library](https://platformio.org/lib/show/12454/RP2040_SD) by using [Library Manager](https://platformio.org/lib/show/12454/RP2040_SD/installation). Search for **RP2040_SD** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
+3. Install [**RP2040_SD** library](https://registry.platformio.org/libraries/khoih-prog/RP2040_SD) by using [Library Manager](https://registry.platformio.org/libraries/khoih-prog/RP2040_SD/installation). Search for **RP2040_SD** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
 
@@ -149,7 +153,7 @@ Another way to install is to:
 
 #### 1. File [ReadWrite.ino](examples/ReadWrite/ReadWrite.ino)
 
-```
+```cpp
 /*
   SD card connection
 
@@ -292,7 +296,7 @@ void loop()
 
 The following is the sample terminal output when running example [CardInfo](examples/CardInfo) on MBED RaspberryPi Pico using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed)
 
-```
+```cpp
 Starting SD Card CardInfo on MBED RaspberryPi Pico
 MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
@@ -331,7 +335,7 @@ NEWDATA.TXT		18
 
 The following is the sample terminal output when running example [DumpFile](examples/DumpFile) on MBED RaspberryPi Pico using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed)
 
-```
+```cpp
 Starting SD Card DumpFile on MBED RaspberryPi Pico
 MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
@@ -351,7 +355,7 @@ Testing RP2040 SD
 
 The following is the sample terminal output when running example [ListFiles](examples/ListFiles) on MBED RaspberryPi Pico using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed)
 
-```
+```cpp
 Starting SD Card ListFiles on MBED RaspberryPi Pico
 MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
@@ -391,7 +395,7 @@ Print Directory done!
 The following is the sample terminal output when running example [ReadWrite](examples/ReadWrite) on MBED RaspberryPi Pico using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed)
 
 
-```
+```cpp
 Starting SD Card ReadWrite on MBED RaspberryPi Pico
 MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
@@ -424,7 +428,7 @@ Testing writing to newtest0.txt
 The following is the sample terminal output when running example [Files](examples/Files) on MBED RaspberryPi Pico using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed)
 
 
-```
+```cpp
 Starting SD Card Files on MBED RaspberryPi Pico
 MBED RP2040_SD v1.0.1
 Initializing SD card with SS = 5
@@ -450,7 +454,7 @@ example.txt doesn't exist.
 
 The following is the sample terminal output when running example [CardInfo](examples/CardInfo) on RASPBERRY_PI_PICO using [**arduino-pico core**](https://github.com/earlephilhower/arduino-pico)
 
-```
+```cpp
 Starting SD Card CardInfo on RASPBERRY_PI_PICO
 RP2040_SD v1.0.1
 Initializing SD card with SS = 17
@@ -487,7 +491,7 @@ NEWDATA.TXT		54
 The following is the sample terminal output when running example [DumpFile](examples/DumpFile) on RASPBERRY_PI_PICO using [**arduino-pico core**](https://github.com/earlephilhower/arduino-pico)
 
 
-```
+```cpp
 Starting SD Card DumpFile on RASPBERRY_PI_PICO
 RP2040_SD v1.0.1
 Initializing SD card with SS = 17
@@ -507,7 +511,7 @@ Testing RP2040 SD
 
 The following is the sample terminal output when running example [ListFiles](examples/ListFiles) on RASPBERRY_PI_PICO using [**arduino-pico core**](https://github.com/earlephilhower/arduino-pico)
 
-```
+```cpp
 Starting SD Card ListFiles on RASPBERRY_PI_PICO
 RP2040_SD v1.0.1
 Initializing SD card with SS = 17
@@ -541,7 +545,7 @@ Print Directory done!
 
 The following is the sample terminal output when running example [ReadWrite](examples/ReadWrite) on RASPBERRY_PI_PICO using [**arduino-pico core**](https://github.com/earlephilhower/arduino-pico)
 
-```
+```cpp
 Starting SD Card ReadWrite on RASPBERRY_PI_PICO
 RP2040_SD v1.0.1
 Initializing SD card with SS = 17
@@ -574,7 +578,7 @@ Testing writing to newtest0.txt
 
 The following is the sample terminal output when running example [Files](examples/Files) on RASPBERRY_PI_PICO using [**arduino-pico core**](https://github.com/earlephilhower/arduino-pico)
 
-```
+```cpp
 Starting SD Card Files on RASPBERRY_PI_PICO
 RP2040_SD v1.0.1
 Initializing SD card with SS = 17
@@ -591,7 +595,6 @@ readData = 0xDEADBEEF
 example.txt exists.
 Removing example.txt...
 example.txt doesn't exist.
-
 ```
 
 ---
@@ -639,6 +642,7 @@ Submit issues to: [RP2040_SD issues](https://github.com/khoih-prog/RP2040_SD/iss
 1. Basic SD-wrapper library for **RP2040-based boards, such as NANO_RP2040_CONNECT, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico core**](https://github.com/earlephilhower/arduino-pico).
 2. Add Version String 
 3. Add Table of Contents
+4. Add astyle using `allman` style. Restyle the library
 
 ---
 ---

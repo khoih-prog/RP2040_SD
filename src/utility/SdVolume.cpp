@@ -1,30 +1,30 @@
 /****************************************************************************************************************************
   SdVolume.cpp
-  
+
   For all RP2040 boads using Arduimo-mbed or arduino-pico core
-  
+
   RP2040_SD is a library enable the usage of SD on RP2040-based boards
-  
+
   This Library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
   as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
   This Library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License along with the Arduino SdFat Library.  
+  You should have received a copy of the GNU General Public License along with the Arduino SdFat Library.
   If not, see <http://www.gnu.org/licenses/>.
-  
+
   Based on and modified from  Arduino SdFat Library (https://github.com/arduino/Arduino)
-  
+
   (C) Copyright 2009 by William Greiman
   (C) Copyright 2010 SparkFun Electronics
   (C) Copyright 2021 by Khoi Hoang
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/RP2040_SD
   Licensed under GPL-3.0 license
-  
+
   Version: 1.0.1
-  
+
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0  K Hoang       18/06/2021 Port to RP2040-based boards using Arduimo-mbed or arduino-pico core
@@ -44,7 +44,7 @@ uint32_t RP2040_SdVolume::cacheMirrorBlock_ = 0;                  // mirror  blo
 
 //------------------------------------------------------------------------------
 // find a contiguous group of clusters
-uint8_t RP2040_SdVolume::allocContiguous(uint32_t count, uint32_t* curCluster) 
+uint8_t RP2040_SdVolume::allocContiguous(uint32_t count, uint32_t* curCluster)
 {
   // start of group
   uint32_t bgnCluster;
@@ -53,15 +53,15 @@ uint8_t RP2040_SdVolume::allocContiguous(uint32_t count, uint32_t* curCluster)
   uint8_t setStart;
 
   // set search start cluster
-  if (*curCluster) 
+  if (*curCluster)
   {
     // try to make file contiguous
     bgnCluster = *curCluster + 1;
 
     // don't save new start location
     setStart = false;
-  } 
-  else 
+  }
+  else
   {
     // start at likely place for free cluster
     bgnCluster = allocSearchStart_;
@@ -69,7 +69,7 @@ uint8_t RP2040_SdVolume::allocContiguous(uint32_t count, uint32_t* curCluster)
     // save next search start if one cluster
     setStart = 1 == count;
   }
-  
+
   // end of group
   uint32_t endCluster = bgnCluster;
 
@@ -77,70 +77,70 @@ uint8_t RP2040_SdVolume::allocContiguous(uint32_t count, uint32_t* curCluster)
   uint32_t fatEnd = clusterCount_ + 1;
 
   // search the FAT for free clusters
-  for (uint32_t n = 0;; n++, endCluster++) 
+  for (uint32_t n = 0;; n++, endCluster++)
   {
     // can't find space checked all clusters
-    if (n >= clusterCount_) 
+    if (n >= clusterCount_)
     {
       return false;
     }
 
     // past end - start from beginning of FAT
-    if (endCluster > fatEnd) 
+    if (endCluster > fatEnd)
     {
       bgnCluster = endCluster = 2;
     }
-    
+
     uint32_t f;
-    
-    if (!fatGet(endCluster, &f)) 
+
+    if (!fatGet(endCluster, &f))
     {
       return false;
     }
 
-    if (f != 0) 
+    if (f != 0)
     {
       // cluster in use try next cluster as bgnCluster
       bgnCluster = endCluster + 1;
-    } 
-    else if ((endCluster - bgnCluster + 1) == count) 
+    }
+    else if ((endCluster - bgnCluster + 1) == count)
     {
       // done - found space
       break;
     }
   }
-  
+
   // mark end of chain
-  if (!fatPutEOC(endCluster)) 
+  if (!fatPutEOC(endCluster))
   {
     return false;
   }
 
   // link clusters
-  while (endCluster > bgnCluster) 
+  while (endCluster > bgnCluster)
   {
-    if (!fatPut(endCluster - 1, endCluster)) 
+    if (!fatPut(endCluster - 1, endCluster))
     {
       return false;
     }
-    
+
     endCluster--;
   }
-  
-  if (*curCluster != 0) 
+
+  if (*curCluster != 0)
   {
     // connect chains
-    if (!fatPut(*curCluster, bgnCluster)) 
+    if (!fatPut(*curCluster, bgnCluster))
     {
       return false;
     }
   }
-  
+
   // return first cluster number to caller
   *curCluster = bgnCluster;
 
   // remember possible next free cluster
-  if (setStart) 
+  if (setStart)
   {
     allocSearchStart_ = bgnCluster + 1;
   }
@@ -148,152 +148,152 @@ uint8_t RP2040_SdVolume::allocContiguous(uint32_t count, uint32_t* curCluster)
   return true;
 }
 //------------------------------------------------------------------------------
-uint8_t RP2040_SdVolume::cacheFlush(uint8_t blocking) 
+uint8_t RP2040_SdVolume::cacheFlush(uint8_t blocking)
 {
-  if (cacheDirty_) 
+  if (cacheDirty_)
   {
-    if (!sdCard_->writeBlock(cacheBlockNumber_, cacheBuffer_.data, blocking)) 
+    if (!sdCard_->writeBlock(cacheBlockNumber_, cacheBuffer_.data, blocking))
     {
       return false;
     }
 
-    if (!blocking) 
+    if (!blocking)
     {
       return true;
     }
 
     // mirror FAT tables
-    if (!cacheMirrorBlockFlush(blocking)) 
+    if (!cacheMirrorBlockFlush(blocking))
     {
       return false;
     }
-    
+
     cacheDirty_ = 0;
   }
-  
+
   return true;
 }
 //------------------------------------------------------------------------------
-uint8_t RP2040_SdVolume::cacheMirrorBlockFlush(uint8_t blocking) 
+uint8_t RP2040_SdVolume::cacheMirrorBlockFlush(uint8_t blocking)
 {
-  if (cacheMirrorBlock_) 
+  if (cacheMirrorBlock_)
   {
-    if (!sdCard_->writeBlock(cacheMirrorBlock_, cacheBuffer_.data, blocking)) 
+    if (!sdCard_->writeBlock(cacheMirrorBlock_, cacheBuffer_.data, blocking))
     {
       return false;
     }
-    
+
     cacheMirrorBlock_ = 0;
   }
-  
+
   return true;
 }
 //------------------------------------------------------------------------------
-uint8_t RP2040_SdVolume::cacheRawBlock(uint32_t blockNumber, uint8_t action) 
+uint8_t RP2040_SdVolume::cacheRawBlock(uint32_t blockNumber, uint8_t action)
 {
-  if (cacheBlockNumber_ != blockNumber) 
+  if (cacheBlockNumber_ != blockNumber)
   {
-    if (!cacheFlush()) 
+    if (!cacheFlush())
     {
       return false;
     }
-    
-    if (!sdCard_->readBlock(blockNumber, cacheBuffer_.data)) 
+
+    if (!sdCard_->readBlock(blockNumber, cacheBuffer_.data))
     {
       return false;
     }
-    
+
     cacheBlockNumber_ = blockNumber;
   }
-  
+
   cacheDirty_ |= action;
-  
+
   return true;
 }
 //------------------------------------------------------------------------------
 // cache a zero block for blockNumber
-uint8_t RP2040_SdVolume::cacheZeroBlock(uint32_t blockNumber) 
+uint8_t RP2040_SdVolume::cacheZeroBlock(uint32_t blockNumber)
 {
-  if (!cacheFlush()) 
+  if (!cacheFlush())
   {
     return false;
   }
 
   // loop take less flash than memset(cacheBuffer_.data, 0, 512);
-  for (uint16_t i = 0; i < 512; i++) 
+  for (uint16_t i = 0; i < 512; i++)
   {
     cacheBuffer_.data[i] = 0;
   }
-  
+
   cacheBlockNumber_ = blockNumber;
   cacheSetDirty();
-  
+
   return true;
 }
 //------------------------------------------------------------------------------
 // return the size in bytes of a cluster chain
-uint8_t RP2040_SdVolume::chainSize(uint32_t cluster, uint32_t* size) const 
+uint8_t RP2040_SdVolume::chainSize(uint32_t cluster, uint32_t* size) const
 {
   uint32_t s = 0;
-  
-  do 
+
+  do
   {
-    if (!fatGet(cluster, &cluster)) 
+    if (!fatGet(cluster, &cluster))
     {
       return false;
     }
-    
+
     s += 512UL << clusterSizeShift_;
   } while (!isEOC(cluster));
-  
+
   *size = s;
   return true;
 }
 
 //------------------------------------------------------------------------------
 // Fetch a FAT entry
-uint8_t RP2040_SdVolume::fatGet(uint32_t cluster, uint32_t* value) const 
+uint8_t RP2040_SdVolume::fatGet(uint32_t cluster, uint32_t* value) const
 {
-  if (cluster > (clusterCount_ + 1)) 
+  if (cluster > (clusterCount_ + 1))
   {
     return false;
   }
-  
+
   uint32_t lba = fatStartBlock_;
   lba += fatType_ == 16 ? cluster >> 8 : cluster >> 7;
-  
-  if (lba != cacheBlockNumber_) 
+
+  if (lba != cacheBlockNumber_)
   {
-    if (!cacheRawBlock(lba, CACHE_FOR_READ)) 
+    if (!cacheRawBlock(lba, CACHE_FOR_READ))
     {
       return false;
     }
   }
-  
-  if (fatType_ == 16) 
+
+  if (fatType_ == 16)
   {
     *value = cacheBuffer_.fat16[cluster & 0XFF];
-  } 
-  else 
+  }
+  else
   {
     *value = cacheBuffer_.fat32[cluster & 0X7F] & FAT32MASK;
   }
-  
+
   return true;
 }
 
 //------------------------------------------------------------------------------
 // Store a FAT entry
-uint8_t RP2040_SdVolume::fatPut(uint32_t cluster, uint32_t value) 
+uint8_t RP2040_SdVolume::fatPut(uint32_t cluster, uint32_t value)
 {
   // error if reserved cluster
-  if (cluster < 2) 
+  if (cluster < 2)
   {
     return false;
   }
 
   // error if not in FAT
-  if (cluster > (clusterCount_ + 1)) 
+  if (cluster > (clusterCount_ + 1))
   {
     return false;
   }
@@ -302,52 +302,52 @@ uint8_t RP2040_SdVolume::fatPut(uint32_t cluster, uint32_t value)
   uint32_t lba = fatStartBlock_;
   lba += fatType_ == 16 ? cluster >> 8 : cluster >> 7;
 
-  if (lba != cacheBlockNumber_) 
+  if (lba != cacheBlockNumber_)
   {
-    if (!cacheRawBlock(lba, CACHE_FOR_READ)) 
+    if (!cacheRawBlock(lba, CACHE_FOR_READ))
     {
       return false;
     }
   }
-  
+
   // store entry
-  if (fatType_ == 16) 
+  if (fatType_ == 16)
   {
     cacheBuffer_.fat16[cluster & 0XFF] = value;
-  } 
-  else 
+  }
+  else
   {
     cacheBuffer_.fat32[cluster & 0X7F] = value;
   }
-  
+
   cacheSetDirty();
 
   // mirror second FAT
-  if (fatCount_ > 1) 
+  if (fatCount_ > 1)
   {
     cacheMirrorBlock_ = lba + blocksPerFat_;
   }
-  
+
   return true;
 }
 //------------------------------------------------------------------------------
 // free a cluster chain
-uint8_t RP2040_SdVolume::freeChain(uint32_t cluster) 
+uint8_t RP2040_SdVolume::freeChain(uint32_t cluster)
 {
   // clear free cluster location
   allocSearchStart_ = 2;
 
-  do 
+  do
   {
     uint32_t next;
-    
-    if (!fatGet(cluster, &next)) 
+
+    if (!fatGet(cluster, &next))
     {
       return false;
     }
 
     // free cluster
-    if (!fatPut(cluster, 0)) 
+    if (!fatPut(cluster, 0))
     {
       return false;
     }
@@ -373,63 +373,64 @@ uint8_t RP2040_SdVolume::freeChain(uint32_t cluster)
    failure include not finding a valid partition, not finding a valid
    FAT file system in the specified partition or an I/O error.
 */
-uint8_t RP2040_SdVolume::init(Sd2Card* dev, uint8_t part) 
+uint8_t RP2040_SdVolume::init(Sd2Card* dev, uint8_t part)
 {
   uint32_t volumeStartBlock = 0;
   sdCard_ = dev;
-  
+
   // if part == 0 assume super floppy with FAT boot sector in block zero
   // if part > 0 assume mbr volume with partition table
-  if (part) 
+  if (part)
   {
-    if (part > 4) 
+    if (part > 4)
     {
       return false;
     }
-    
-    if (!cacheRawBlock(volumeStartBlock, CACHE_FOR_READ)) 
+
+    if (!cacheRawBlock(volumeStartBlock, CACHE_FOR_READ))
     {
       return false;
     }
-    
+
     part_t* p = &cacheBuffer_.mbr.part[part - 1];
-    
-    if ((p->boot & 0X7F) != 0 || p->totalSectors < 100 || p->firstSector == 0) 
+
+    if ((p->boot & 0X7F) != 0 || p->totalSectors < 100 || p->firstSector == 0)
     {
       // not a valid partition
       return false;
     }
+
     volumeStartBlock = p->firstSector;
   }
-  
-  if (!cacheRawBlock(volumeStartBlock, CACHE_FOR_READ)) 
+
+  if (!cacheRawBlock(volumeStartBlock, CACHE_FOR_READ))
   {
     return false;
   }
-  
+
   bpb_t* bpb = &cacheBuffer_.fbs.bpb;
-  
-  if (bpb->bytesPerSector != 512 || bpb->fatCount == 0 || bpb->reservedSectorCount == 0 || bpb->sectorsPerCluster == 0) 
+
+  if (bpb->bytesPerSector != 512 || bpb->fatCount == 0 || bpb->reservedSectorCount == 0 || bpb->sectorsPerCluster == 0)
   {
     // not valid FAT volume
     return false;
   }
-  
+
   fatCount_ = bpb->fatCount;
   blocksPerCluster_ = bpb->sectorsPerCluster;
 
   // determine shift that is same as multiply by blocksPerCluster_
   clusterSizeShift_ = 0;
-  
-  while (blocksPerCluster_ != (1 << clusterSizeShift_)) 
+
+  while (blocksPerCluster_ != (1 << clusterSizeShift_))
   {
     // error if not power of 2
-    if (clusterSizeShift_++ > 7) 
+    if (clusterSizeShift_++ > 7)
     {
       return false;
     }
   }
-  
+
   blocksPerFat_ = bpb->sectorsPerFat16 ? bpb->sectorsPerFat16 : bpb->sectorsPerFat32;
 
   fatStartBlock_ = volumeStartBlock + bpb->reservedSectorCount;
@@ -453,19 +454,19 @@ uint8_t RP2040_SdVolume::init(Sd2Card* dev, uint8_t part)
   clusterCount_ >>= clusterSizeShift_;
 
   // FAT type is determined by cluster count
-  if (clusterCount_ < 4085) 
+  if (clusterCount_ < 4085)
   {
     fatType_ = 12;
-  } 
-  else if (clusterCount_ < 65525) 
+  }
+  else if (clusterCount_ < 65525)
   {
     fatType_ = 16;
-  } 
-  else 
+  }
+  else
   {
     rootDirStart_ = bpb->fat32RootCluster;
     fatType_ = 32;
   }
-  
+
   return true;
 }
